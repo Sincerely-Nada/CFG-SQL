@@ -1,0 +1,145 @@
+
+Create Database HikariSkin ;
+
+Use HikariSkin; 
+
+CREATE TABLE Stores (
+Store_ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
+Store_Name VARCHAR (20),
+Email VARCHAR (50),
+Street VARCHAR(30) NOT NULL,
+Post_code CHAR(20),
+City VARCHAR(30) NOT NULL,
+Country VARCHAR(20) NOT NULL
+);
+
+
+INSERT INTO Stores (Store_ID,Store_Name, Email,Street,Post_code, City, Country)
+
+VALUES 
+
+(400,'Hikari London','Hikari.London@HSKIN.com', '10 OXford Street','W1D 1BS','London','United Kingdom'),
+
+(420,'Hikari Manchester','Hikari.Manc@HSKIN.com','1 Exchange Square Central','M3 1BD', 'Manchester','United Kingdom'),
+
+(440,'Hikari Tokyo','Hikari.Tokyo@HSKIN.com', 'Senkawa-dori Avenue','176-0006','Tokyo','Japan'),
+
+(460,'Hikari Kyoto','Hikari.Kyoto@HSKIN.com','1 Nishikujo Toriiguchicho', '601-8417','Kyoto','Japan');
+
+
+CREATE TABLE Employees(
+Employee_ID INT PRIMARY KEY,
+First_Name VARCHAR(20) NOT NULL,
+Last_Name VARCHAR(50) NOT NULL,
+Phone CHAR(20) NOT NULL,
+Email VARCHAR(50),
+Street VARCHAR(50),
+Post_code CHAR(50),
+City VARCHAR(20),
+Country VARCHAR(20),
+Position VARCHAR(20),
+Birthday_date DATE,
+Store_Location VARCHAR (20),
+Store_ID INT NOT NULL,
+FOREIGN KEY (Store_ID) REFERENCES Stores(Store_ID)
+);
+
+
+
+INSERT INTO Employees(Employee_ID,First_Name, Last_Name, Phone, Email, Street, Post_code, City, Country, Birthday_date, Position, Store_Location,Store_ID)
+
+VALUES 
+(7100,'Josh', 'Lorenz', '07628183227', 'Josh.Lorenz@gmail.com','1 Green Lane','N81 0YR','London','United Kingdom','1987-02-12','Manager','London','400'),
+(7110,'Maria', 'Santana', '07622283227', 'Maria.Santana@gmail.com','12 Chester Road','E14 5JY','London','United Kingdom','1992-06-18','Assistant','London','400'),
+(7120, 'Temi','Ali', '0779017483','Temi.Ali@gmail.com', '62 Princess St','M1C 5CY', 'Mancheser', 'United Kingdom', '1979-03-21','Manager','Manchester','420'),
+(7130,'Nia','Romero', '07858596842', 'Nia.Romero@gmail.com','96 Peter St','M5Y 4LD', 'Manchester','United Kingdom', '1988-08-08','Consultant','Manchester','420'), 
+(7140,'Mura', 'Sayri', '+81114384170', 'Mura.Sayri@gmail.com','398 Shimokoriyama','179-0074','Tokyo','Japan','1993-07-27','Manager','Japan','440'),
+(7150,'Keiichi','Tanabe', '+81354155245', 'Keiichi.Tanabe@gmail.com','Fuji-kaido Avenue','177-0032','Tokyo','Japan','2000-03-30','Manager','Kyoto','460'),
+(7160,'Kiyoko','Mari', '+8219672315', 'Kiyoko.Mari@gmail.com','1070 Kojincho','71789','Kyoto','Japan','1998-05-03','Facial specialist','Kyoto','460'),
+(7170,'Jhene', 'Aiko', '+8115-736-2412', 'Jhene.Aiko@gmail.com','1074 Sonobecho Kawaramachi','Japan','71789','Kyoto','1999-05-03','Dermatolgist','Tokyo','440');
+
+
+
+CREATE TABLE Products (
+  Product_ID INT AUTO_INCREMENT PRIMARY KEY,
+  Product_Name VARCHAR(20) NOT NULL,
+  Product_Price DECIMAL(6,2),
+  Barcode INT NOT NULL,
+  Customer_ID INT);
+
+
+
+INSERT INTO Products(Product_ID,Product_Name, Product_Price,Barcode)
+
+VALUES 
+
+(1,'Moisturizer', '25.99','21334698'),
+(2,'Sunscreen', '23.00','21334698'),
+(3,'Eye Cream', '19.00','43922077'),
+(4,'Cleanser','21.50','28319525'),
+(5,'Exfoliator', '24.50','64144003'),
+(6,'Chemical Peel', '27.50','52225325'),
+(7,'Serum', '39.90','52609165'),
+(8,'Face Oil', '23.90','52609165'),
+(9,'Toner', '22.99','09246613'),
+(10,'Face Mask', '15.90','84474627');
+
+
+Create Table Customers ( 
+Customer_ID INT AUTO_INCREMENT PRIMARY KEY,
+First_Name VARCHAR(20) NOT NULL,
+Last_Name VARCHAR(20) NOT NULL,
+Phone CHAR(20) NOT NULL,
+Email VARCHAR(50),
+Street VARCHAR(50),
+Post_code CHAR(20),
+City VARCHAR(20),
+Country VARCHAR(20));
+
+
+INSERT INTO Customers(Customer_ID,First_Name, Last_Name, Phone, Email, Street, Post_code, City, Country)
+
+VALUES 
+
+(140,'Nada', 'Laurent', '07413046736', 'Nada.Laurent@gmail.com','14 Autumn Close ','SL1 5DH','Slough','United Kingdom'),
+
+(150,'Ichiko', 'Aoba', '+8186-311-9642 ', 'Ichiko.Aoba@gmail.com','Kannana-dori Avenue','176-0011','Tokyo','Japan'),
+
+(160,'Hannah', 'Baker', '07413078908', 'Hannah.Baker@gmail.com','9 Alexander Road','SSW23 0DH','London','United Kingdom'),
+
+(170,'Emily','Roberts','07712 345678','Emily.Roberts@gmail.com','8 Maple Court',' M16 9WQ','Manchester', 'United Kingdom'),
+
+(180,'Olivia','Wilde','07945 678901', 'Oliva.Wilde@gmail.com','32 Birch Avenue','M20 6NZ', 'Manchester', 'United Kingdom'),
+
+(190,'Kenji', 'Tanaka','+81 90-5678-9012','Kenji.Tanaka@gmail.com','5 Higashi Kanda','101-0031','Tokyo','Japan'),
+
+(200,'Sora','Ito','+81 90-8901-2345','Sora.Ito@gmail.com','1 Ueno Park','600-8093','Kyoto','Japan'),
+
+(210, 'Mei','Yamazaki','+81 90-0123-4567','Mei.Yamazaki@gmail.com','8 Ryogoku','602-8206','Kyoto','Japan');
+
+
+CREATE TABLE Orders (
+  Order_ID INT AUTO_INCREMENT UNIQUE PRIMARY KEY,
+  Quantity INT NOT NULL,
+  Order_Status VARCHAR(10) NOT NULL,
+  Order_Date TIMESTAMP NOT NULL,
+  Shipping_Date TIMESTAMP NOT NULL,
+  Product_ID INT NOT NULL,
+  Customer_ID INT NOT NULL,
+  Customer_Last_Name VARCHAR(20) NOT NULL,
+  Store_ID INT NOT NULL,
+  FOREIGN KEY (Product_ID) REFERENCES Products(Product_ID),
+  FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
+  FOREIGN KEY (Store_ID) REFERENCES Stores(Store_ID)
+);
+
+
+INSERT INTO Orders(Order_ID,Quantity,Order_Status,Order_Date,Shipping_Date,product_ID,Customer_ID,Customer_last_name,store_ID)
+VALUES 
+(111,'5','PAID', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,140,'Laurent',400),
+(112,'7','Pending', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,3,190,'Tanaka',440),
+(113,'4','Pending', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,5,170,'Roberts',420),
+(114,'2','PAID', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,8,200,'Ito',460),
+(116,'3','PAID', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,10,160,'Baker',400),
+(117,'2','Pending', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,9,150,'Aoba',440),
+(118,1,'PAID', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,210,'Yamazaki',460);
